@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="New Game Project"
+run/main_scene="res://Hero.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -24,4 +25,5 @@ project/assembly_name="New Game Project"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"

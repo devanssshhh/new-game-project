@@ -1,3 +1,16 @@
 [gd_scene format=3 uid="uid://dgh6fk2hhwsf3"]
 
+[ext_resource type="PackedScene" uid="uid://dyov070j4kp6c" path="res://Hero.tscn" id="1_e5alk"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_e5alk"]
+
+[sub_resource type="TileSet" id="TileSet_vigqh"]
+sources/0 = SubResource("TileSetScenesCollectionSource_e5alk")
+
 [node name="World-1" type="Node" unique_id=2111387832]
+
+[node name="CharacterBody2D" parent="." unique_id=1652746095 instance=ExtResource("1_e5alk")]
+position = Vector2(1197, -306)
+
+[node name="floor" type="TileMapLayer" parent="." unique_id=1146449034]
+tile_set = SubResource("TileSet_vigqh")
