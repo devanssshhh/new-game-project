@@ -6,8 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://cb2o1e4uiwv6k" path="res://Asset Characters/Knight_player_1.4/Knight_player/Jump_KG_1.png" id="4_0lh7v"]
 [ext_resource type="Texture2D" uid="uid://d16chr3ti737i" path="res://Asset Characters/Knight_player_1.4/Knight_player/Attack_KG_1.png" id="4_hkir8"]
 [ext_resource type="Texture2D" uid="uid://bh8q83hc0d5d6" path="res://Asset Characters/Knight_player_1.4/Knight_player/Attack_KG_2.png" id="5_kg2"]
-[ext_resource type="Script" path="res://HurtBox.cs" id="6_hurtbox"]
-[ext_resource type="Script" path="res://HitBox.cs" id="7_hitbox"]
+[ext_resource type="Script" uid="uid://cwgi16fde4wp6" path="res://HurtBox.cs" id="6_hurtbox"]
+[ext_resource type="Texture2D" uid="uid://c1vpg1fccuthe" path="res://Asset Characters/Knight_player_1.4/Knight_player/Shield_Bash_KG.png" id="6_plcxf"]
+[ext_resource type="Script" uid="uid://defrp5kxjc6df" path="res://HitBox.cs" id="7_hitbox"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pd30k"]
 atlas = ExtResource("1_r1erh")
@@ -96,6 +97,26 @@ region = Rect2(400, 0, 100, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_wcg3s"]
 atlas = ExtResource("5_kg2")
 region = Rect2(500, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bryye"]
+atlas = ExtResource("6_plcxf")
+region = Rect2(300, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdcoc"]
+atlas = ExtResource("6_plcxf")
+region = Rect2(400, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xyuxr"]
+atlas = ExtResource("6_plcxf")
+region = Rect2(200, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjw7s"]
+atlas = ExtResource("6_plcxf")
+region = Rect2(100, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2oedu"]
+atlas = ExtResource("6_plcxf")
+region = Rect2(0, 0, 100, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8vsgf"]
 atlas = ExtResource("4_hkir8")
@@ -211,6 +232,31 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_bryye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdcoc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xyuxr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjw7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2oedu")
+}],
+"loop": false,
+"name": &"shield",
+"speed": 10.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"shield-hold",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_8vsgf")
 }, {
 "duration": 1.0,
@@ -248,9 +294,20 @@ z_index = 7
 script = ExtResource("1_pd30k")
 
 [node name="Hero" type="AnimatedSprite2D" parent="." unique_id=1526804120]
+rotation = 0.0069899093
 sprite_frames = SubResource("SpriteFrames_0lh7v")
-animation = &"jump"
-frame_progress = 0.65294164
+animation = &"shield"
+
+[node name="Healthbar" type="ProgressBar" parent="Hero" unique_id=1931183165]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = -1.3510001
+anchor_right = 0.5
+anchor_bottom = -1.3510001
+offset_left = -50.0
+offset_top = 46.464005
+offset_right = -10.0
+offset_bottom = 73.464005
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=524423129]
 position = Vector2(1, 3)
