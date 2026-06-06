@@ -4,3 +4,9 @@
 
 # macOS
 .DS_Store
+
+# ForestWorld (local only)
+ForestWorld.cs
+ForestWorld.cs.uid
+world_forest.tscn
+resources/
