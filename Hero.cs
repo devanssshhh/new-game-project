@@ -11,8 +11,10 @@ public partial class Hero : CharacterBody2D
 	private AnimatedSprite2D _sprite;
 	private HitBox _hitBox;
 	private Vector2 _hitBoxBaseOffset;
+	private ProgressBar _healthBar; // FIXED: Added the HealthBar reference back
 	private int _health;
 	private bool _isAttacking;
+	private bool _isShielding; // Tracks if the shield button is actively held down
 	private bool _dead;
 
 	public override void _Ready()
@@ -27,6 +29,18 @@ public partial class Hero : CharacterBody2D
 		_hitBoxBaseOffset = _hitBox.Position;
 
 		GetNode<HurtBox>("HurtZone").Hurt += OnHurt;
+
+		// FIXED: Find the HealthBar node over your head and set it to 100% on start
+		_healthBar = GetNode<ProgressBar>("HealthBar");
+		if (_healthBar != null)
+		{
+			_healthBar.MaxValue = MaxHealth;
+			_healthBar.Value = MaxHealth;
+		}
+		else
+		{
+			GD.PrintErr("Error: Could not find a child node named 'HealthBar' under Hero!");
+		}
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -38,19 +52,40 @@ public partial class Hero : CharacterBody2D
 
 		Vector2 velocity = Velocity;
 
+		// Add the gravity.
 		if (!IsOnFloor())
 		{
 			velocity += GetGravity() * (float)delta;
 		}
 
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+		// Handle Shield Input (Hold Mode)
+		// Only allow shielding if the player is safely grounded and not actively swinging
+		if (IsOnFloor() && !_isAttacking)
+		{
+			if (Input.IsActionPressed("shield_block"))
+			{
+				_isShielding = true;
+			}
+			else
+			{
+				_isShielding = false;
+			}
+		}
+		else
+		{
+			_isShielding = false; // Automatically drop shield if falling/jumping
+		}
+
+		// Handle Jump (Disabled while holding shield)
+		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor() && !_isAttacking && !_isShielding)
 		{
 			velocity.Y = JumpVelocity;
 		}
 
 		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 
-		if (!_isAttacking)
+		// Combat Trigger Inputs (Attacks disabled while shielding)
+		if (!_isAttacking && !_isShielding)
 		{
 			if (Input.IsActionJustPressed("lower-base-attack"))
 			{
@@ -62,7 +97,8 @@ public partial class Hero : CharacterBody2D
 			}
 		}
 
-		if (!_isAttacking)
+		// Handle Movement Speed
+		if (!_isAttacking && !_isShielding)
 		{
 			if (direction != Vector2.Zero)
 			{
@@ -75,6 +111,7 @@ public partial class Hero : CharacterBody2D
 		}
 		else
 		{
+			// Stops your character dead in their tracks while attacking or holding the shield up
 			velocity.X = 0;
 		}
 
@@ -93,10 +130,7 @@ public partial class Hero : CharacterBody2D
 
 	private void PlayAttack(string animation)
 	{
-		if (_isAttacking)
-		{
-			return;
-		}
+		if (_isAttacking || _isShielding) return;
 
 		_isAttacking = true;
 		_sprite.Play(animation);
@@ -105,6 +139,7 @@ public partial class Hero : CharacterBody2D
 
 	private void OnAnimationFinished()
 	{
+		// Clean up weapon attack animations
 		if (_sprite.Animation == "lower-base-attack" || _sprite.Animation == "upper-base-attack")
 		{
 			_isAttacking = false;
@@ -114,11 +149,13 @@ public partial class Hero : CharacterBody2D
 
 	private void UpdateAnimation(float directionX)
 	{
+		// Let weapon attack animations finish completely uninterrupted
 		if (_isAttacking)
 		{
 			return;
 		}
 
+		// Flip the sprite texture layout based on movement direction
 		if (directionX > 0)
 		{
 			_sprite.FlipH = false;
@@ -128,15 +165,29 @@ public partial class Hero : CharacterBody2D
 			_sprite.FlipH = true;
 		}
 
-		string animation = !IsOnFloor() ? "jump" : directionX != 0 ? "Walking" : "Idle";
-		if (_sprite.Animation != animation)
+		// Determine which base animation state should be executing
+		if (_isShielding)
 		{
-			_sprite.Play(animation);
+			// If we aren't already on the shield animation, start it.
+			// Because looping is turned off in your editor, Godot will naturally 
+			// run the frames to the end and freeze on the last frame automatically.
+			if (_sprite.Animation != "shield")
+			{
+				_sprite.Play("shield");
+			}
+		}
+		else
+		{
+			// Only process movement states if we are NOT blocking
+			string animation = !IsOnFloor() ? "jump" : directionX != 0 ? "Walking" : "Idle";
+			if (_sprite.Animation != animation)
+			{
+				_sprite.Play(animation);
+			}
 		}
 	}
 
-	// Mirror the hitbox to the side the sprite is facing. FlipH == false means
-	// facing right (positive X), FlipH == true means facing left.
+	// Mirror the hitbox to the side the sprite is facing.
 	private void UpdateHitBoxFacing()
 	{
 		float x = Mathf.Abs(_hitBoxBaseOffset.X) * (_sprite.FlipH ? -1.0f : 1.0f);
@@ -150,8 +201,21 @@ public partial class Hero : CharacterBody2D
 			return;
 		}
 
+		// Takes substantially reduced damage if hit while holding up the shield!
+		if (_isShielding)
+		{
+			GD.Print("Blocked! Damage reduced.");
+			damage = (int)(damage * 0.1f); // 90% damage reduction
+		}
+
 		_health -= damage;
-		GD.Print($"Knight took {damage} damage! Current health: {_health}");
+
+		// FIXED: Update the overhead visual health bar value
+		if (_healthBar != null)
+		{
+			_healthBar.Value = _health;
+		}
+
 		Flash();
 
 		if (_health <= 0)
@@ -172,10 +236,18 @@ public partial class Hero : CharacterBody2D
 	{
 		_dead = true;
 		_isAttacking = false;
+		_isShielding = false;
 		_hitBox.EndAttack();
 		_sprite.Modulate = new Color(0.4f, 0.4f, 0.4f);
 		Velocity = Vector2.Zero;
 		_sprite.Play("Idle");
+
+		// FIXED: Force bar to empty visual state on death
+		if (_healthBar != null)
+		{
+			_healthBar.Value = 0;
+		}
+
 		SetPhysicsProcess(false);
 
 		GD.Print("Knight died! Reloading current scene in 2 seconds...");
