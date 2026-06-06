@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dxply67o5c5tr"]
+
+[sub_resource type="TileSet" id="TileSet_dqocm"]
+
+[node name="Castle" type="Node" unique_id=311956120]
+
+[node name="Layers" type="Node" parent="." unique_id=1571429681]
+
+[node name="CastleBackground" type="TileMapLayer" parent="Layers" unique_id=896519478]
+tile_set = SubResource("TileSet_dqocm")

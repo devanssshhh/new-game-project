@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://sodeav4a2dfv" path="res://Hero.cs" id="1_pd30k"]
 [ext_resource type="Texture2D" uid="uid://dpl3juc2fm805" path="res://Asset Characters/Knight_player_1.4/Knight_player/Idle_KG_1.png" id="1_r1erh"]
+[ext_resource type="Texture2D" uid="uid://bqbaj0310ideh" path="res://Asset Characters/Knight_player_1.4/Knight_player/Walking_KG_1.png" id="3_rmve0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pd30k"]
 atlas = ExtResource("1_r1erh")
@@ -19,6 +20,34 @@ region = Rect2(200, 0, 100, 64)
 atlas = ExtResource("1_r1erh")
 region = Rect2(300, 0, 100, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lh7v"]
+atlas = ExtResource("3_rmve0")
+region = Rect2(0, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4516"]
+atlas = ExtResource("3_rmve0")
+region = Rect2(100, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b8tbv"]
+atlas = ExtResource("3_rmve0")
+region = Rect2(200, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_plcxf"]
+atlas = ExtResource("3_rmve0")
+region = Rect2(300, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xdk4o"]
+atlas = ExtResource("3_rmve0")
+region = Rect2(400, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_717wb"]
+atlas = ExtResource("3_rmve0")
+region = Rect2(500, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1q8p"]
+atlas = ExtResource("3_rmve0")
+region = Rect2(600, 0, 100, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_0lh7v"]
 animations = [{
 "frames": [{
@@ -35,7 +64,33 @@ animations = [{
 "texture": SubResource("AtlasTexture_y8jgb")
 }],
 "loop": true,
-"name": &"default",
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lh7v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4516")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b8tbv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_plcxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xdk4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_717wb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1q8p")
+}],
+"loop": true,
+"name": &"Walking",
 "speed": 5.0
 }]
 
@@ -46,9 +101,9 @@ height = 58.0
 z_index = 7
 script = ExtResource("1_pd30k")
 
-[node name="Idle" type="AnimatedSprite2D" parent="." unique_id=1526804120]
+[node name="Hero" type="AnimatedSprite2D" parent="." unique_id=1526804120]
 sprite_frames = SubResource("SpriteFrames_0lh7v")
-frame_progress = 0.12071707
+animation = &"Walking"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=524423129]
 visible = false
