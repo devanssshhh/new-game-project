@@ -43,6 +43,7 @@ animations = [{
 height = 58.0
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1652746095]
+z_index = 7
 script = ExtResource("1_pd30k")
 
 [node name="Idle" type="AnimatedSprite2D" parent="." unique_id=1526804120]
