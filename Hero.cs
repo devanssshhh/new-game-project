@@ -182,4 +182,19 @@ public partial class Hero : CharacterBody2D
 		await ToSignal(GetTree().CreateTimer(2.0), SceneTreeTimer.SignalName.Timeout);
 		GetTree().ReloadCurrentScene();
 	}
+
+	// Called by the kill zone when the player falls off the level. Dies, then
+	// restarts the game after a short delay.
+	public void Kill()
+	{
+		if (_dead)
+		{
+			return;
+		}
+
+		Die();
+		SceneTree tree = GetTree();
+		SceneTreeTimer timer = tree.CreateTimer(1.0);
+		timer.Timeout += () => tree.ReloadCurrentScene();
+	}
 }
