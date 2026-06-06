@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="New Game Project"
-run/main_scene="res://Hero.tscn"
-config/features=PackedStringArray("4.6", "Forward Plus")
+run/main_scene="res://world_1.tscn"
+config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
