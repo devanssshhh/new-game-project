@@ -1,0 +1,152 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" uid="uid://bvwi2oid7u7ue" path="res://Asset Characters/Monster_Creatures_Fantasy(Version 1.3)/Goblin/Attack3.png" id="1_texture"]
+[ext_resource type="Script" path="res://EnemyGoblin.cs" id="2_script"]
+[ext_resource type="Script" path="res://HurtBox.cs" id="3_hurtbox"]
+[ext_resource type="Script" path="res://ContactHazard.cs" id="4_contact_hazard"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_phys"]
+radius = 10.0
+height = 58.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hurt"]
+radius = 15.0
+height = 65.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_contact"]
+radius = 25.0
+height = 65.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0"]
+atlas = ExtResource("1_texture")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1"]
+atlas = ExtResource("1_texture")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2"]
+atlas = ExtResource("1_texture")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3"]
+atlas = ExtResource("1_texture")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4"]
+atlas = ExtResource("1_texture")
+region = Rect2(600, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5"]
+atlas = ExtResource("1_texture")
+region = Rect2(750, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6"]
+atlas = ExtResource("1_texture")
+region = Rect2(900, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7"]
+atlas = ExtResource("1_texture")
+region = Rect2(1050, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8"]
+atlas = ExtResource("1_texture")
+region = Rect2(1200, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g9"]
+atlas = ExtResource("1_texture")
+region = Rect2(1350, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g10"]
+atlas = ExtResource("1_texture")
+region = Rect2(1500, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g11"]
+atlas = ExtResource("1_texture")
+region = Rect2(1650, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_goblin"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g9")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g11")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 10.0
+}]
+
+[node name="EnemyGoblin" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 1
+script = ExtResource("2_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 20)
+shape = SubResource("CapsuleShape2D_phys")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 20)
+scale = Vector2(0.85, 0.85)
+sprite_frames = SubResource("SpriteFrames_goblin")
+animation = &"Walk"
+autoplay = "Walk"
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_hurtbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, 25)
+shape = SubResource("CapsuleShape2D_hurt")
+
+[node name="ContactHazard" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_contact_hazard")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactHazard"]
+position = Vector2(0, 25)
+shape = SubResource("CapsuleShape2D_contact")

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dyov070j4kp6c" path="res://Hero.tscn" id="1_e5alk"]
 [ext_resource type="PackedScene" uid="uid://x5ubek1osuxs" path="res://EnemySumrai.tscn" id="1_mnfc1"]
 [ext_resource type="PackedScene" path="res://EnemySkeleton.tscn" id="1_skeleton"]
+[ext_resource type="PackedScene" path="res://EnemyGoblin.tscn" id="1_goblin"]
 [ext_resource type="Texture2D" uid="uid://chwuoel6j8uyr" path="res://Asset Scenarios/DarkForest1.2/main_background.png" id="2_mqyi5"]
 [ext_resource type="Texture2D" uid="uid://bmneatqd8tax3" path="res://Asset Scenarios/DarkForest1.2/env_ground.png" id="3_1wjj6"]
 [ext_resource type="Texture2D" uid="uid://b1aimsmdlh17r" path="res://Asset Scenarios/DarkForest1.2/bgrd_tree1.png" id="4_8rlr6"]
@@ -3903,6 +3904,10 @@ position = Vector2(3137, -433)
 visible = false
 z_index = 7
 position = Vector2(1450, -320)
+
+[node name="EnemyGoblin" parent="." instance=ExtResource("1_goblin")]
+z_index = 7
+position = Vector2(1320, -320)
 
 [node name="CharacterBody2D" parent="." unique_id=1652746095 instance=ExtResource("1_e5alk")]
 visible = false
