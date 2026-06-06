@@ -127,8 +127,8 @@ position = Vector2(0, 20)
 shape = SubResource("CapsuleShape2D_phys")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 20)
-scale = Vector2(0.85, 0.85)
+position = Vector2(0, 5)
+scale = Vector2(1.69, 1.69)
 sprite_frames = SubResource("SpriteFrames_goblin")
 animation = &"Walk"
 autoplay = "Walk"
@@ -146,6 +146,7 @@ shape = SubResource("CapsuleShape2D_hurt")
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("4_contact_hazard")
+Damage = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ContactHazard"]
 position = Vector2(0, 25)

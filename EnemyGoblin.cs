@@ -6,7 +6,7 @@ public partial class EnemyGoblin : CharacterBody2D
 	[Export] public int MaxHealth = 10;
 	[Export] public float ProximityRange = 60.0f;
 	[Export] public float DetectRange = 300.0f;
-	[Export] public float PatrolRange = 50.0f;
+	[Export] public float PatrolRange = 150.0f;
 
 	private AnimatedSprite2D _sprite;
 	private Node2D _player;

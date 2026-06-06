@@ -30,8 +30,8 @@ public partial class Hero : CharacterBody2D
 
 		GetNode<HurtBox>("HurtZone").Hurt += OnHurt;
 
-		// FIXED: Find the HealthBar node over your head and set it to 100% on start
-		_healthBar = GetNode<ProgressBar>("HealthBar");
+		// FIXED: Find the Healthbar node over your head and set it to 100% on start
+		_healthBar = GetNodeOrNull<ProgressBar>("Hero/Healthbar");
 		if (_healthBar != null)
 		{
 			_healthBar.MaxValue = MaxHealth;
@@ -39,7 +39,7 @@ public partial class Hero : CharacterBody2D
 		}
 		else
 		{
-			GD.PrintErr("Error: Could not find a child node named 'HealthBar' under Hero!");
+			GD.PrintErr("Error: Could not find a child node named 'Hero/Healthbar' under Hero!");
 		}
 	}
 

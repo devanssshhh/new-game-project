@@ -1,9 +1,9 @@
 [gd_scene format=4 uid="uid://dgh6fk2hhwsf3"]
 
 [ext_resource type="PackedScene" uid="uid://dyov070j4kp6c" path="res://Hero.tscn" id="1_e5alk"]
+[ext_resource type="PackedScene" path="res://EnemyGoblin.tscn" id="1_goblin"]
 [ext_resource type="PackedScene" uid="uid://x5ubek1osuxs" path="res://EnemySumrai.tscn" id="1_mnfc1"]
 [ext_resource type="PackedScene" path="res://EnemySkeleton.tscn" id="1_skeleton"]
-[ext_resource type="PackedScene" path="res://EnemyGoblin.tscn" id="1_goblin"]
 [ext_resource type="Texture2D" uid="uid://chwuoel6j8uyr" path="res://Asset Scenarios/DarkForest1.2/main_background.png" id="2_mqyi5"]
 [ext_resource type="Texture2D" uid="uid://bmneatqd8tax3" path="res://Asset Scenarios/DarkForest1.2/env_ground.png" id="3_1wjj6"]
 [ext_resource type="Texture2D" uid="uid://b1aimsmdlh17r" path="res://Asset Scenarios/DarkForest1.2/bgrd_tree1.png" id="4_8rlr6"]
@@ -3901,23 +3901,20 @@ z_index = 7
 position = Vector2(3137, -433)
 
 [node name="EnemySkeleton" parent="." unique_id=1497747250 instance=ExtResource("1_skeleton")]
-visible = false
 z_index = 7
-position = Vector2(1450, -320)
+position = Vector2(1380, -320)
 
-[node name="EnemyGoblin" parent="." instance=ExtResource("1_goblin")]
+[node name="EnemyGoblin" parent="." unique_id=892740611 instance=ExtResource("1_goblin")]
 z_index = 7
-position = Vector2(1320, -320)
+position = Vector2(2200, -320)
 
 [node name="CharacterBody2D" parent="." unique_id=1652746095 instance=ExtResource("1_e5alk")]
-visible = false
 z_index = 9
 position = Vector2(1197, -306)
 
 [node name="Layers" type="Node" parent="." unique_id=1742231740]
 
 [node name="background" type="TileMapLayer" parent="Layers" unique_id=1974754781]
-visible = false
 tile_map_data = PackedByteArray("AAA8AN3/AAAAAAAAAABVANj/AAAfAAAAAABlANj/AAAyAAAAAAB1ANj/AAAfAAAAAACIANj/AAAfAAAAAACYANj/AAAyAAAAAABMAO//AAAAABAAAACMAO//AAAAABAAAADLAO//AAAAABAAAABcAOH/AAAfAAkAAABcAOL/AAAfAAkAAABcAN//AAAfAAkAAAB8AN//AAAfAAkAAAB9AOL/AAAfAAkAAACbAN//AAAfAAkAAACdAOT/AAAfAAkAAAA=")
 tile_set = SubResource("TileSet_1wjj6")
 
@@ -3928,29 +3925,24 @@ tile_map_data = PackedByteArray("AABLAO//AgAIAA4AAABZAO//AgAIAA4AAABDAO//AgAIAA4
 tile_set = SubResource("TileSet_vigqh")
 
 [node name="FarbackBaground" type="TileMapLayer" parent="Layers" unique_id=2099446725]
-visible = false
 z_index = 2
 tile_map_data = PackedByteArray("AABHAOz/BQAAACAAAABhAOz/BQAAACAAAABLAOj/AQAAAAMAAAB8AOj/AQAAAAMAAACrAOn/AQAAAAMAAAA=")
 tile_set = SubResource("TileSet_204sq")
 
 [node name="BackgroudnTrees" type="TileMapLayer" parent="Layers" unique_id=1232416433]
-visible = false
 z_index = 3
 tile_map_data = PackedByteArray("AABLAOf/AwAAAAEAAAB8AOj/AwAAAAEAAACfAOn/AwAAAAEAAAA=")
 tile_set = SubResource("TileSet_204sq")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Layers" unique_id=580367184]
-visible = false
 z_index = 10
 tile_map_data = PackedByteArray("AABaAOv/AAAJABYAAAA=")
 tile_set = SubResource("TileSet_mnfc1")
 
 [node name="KillZone" type="Area2D" parent="." unique_id=1780593946]
-visible = false
 position = Vector2(1197, 100)
 collision_layer = 0
 script = ExtResource("21_killzone")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone" unique_id=2070679066]
-visible = false
 shape = SubResource("RectangleShape2D_killzone")
