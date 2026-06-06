@@ -120,6 +120,12 @@ public partial class Hero : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+
+		if (GlobalPosition.Y > 100.0f)
+		{
+			GD.Print("Knight fell off the map!");
+			Die();
+		}
 	}
 
 	private void PlayAttack(string animation)
@@ -214,6 +220,7 @@ public partial class Hero : CharacterBody2D
 
 		if (_health <= 0)
 		{
+			GD.Print("Knight died!");
 			Die();
 		}
 	}
@@ -225,7 +232,7 @@ public partial class Hero : CharacterBody2D
 		tween.TweenProperty(_sprite, "modulate", Colors.White, 0.2f);
 	}
 
-	private void Die()
+	private async void Die()
 	{
 		_dead = true;
 		_isAttacking = false;
@@ -242,5 +249,24 @@ public partial class Hero : CharacterBody2D
 		}
 
 		SetPhysicsProcess(false);
+
+		GD.Print("Knight died! Reloading current scene in 2 seconds...");
+		await ToSignal(GetTree().CreateTimer(2.0), SceneTreeTimer.SignalName.Timeout);
+		GetTree().ReloadCurrentScene();
+	}
+
+	// Called by the kill zone when the player falls off the level. Dies, then
+	// restarts the game after a short delay.
+	public void Kill()
+	{
+		if (_dead)
+		{
+			return;
+		}
+
+		Die();
+		SceneTree tree = GetTree();
+		SceneTreeTimer timer = tree.CreateTimer(1.0);
+		timer.Timeout += () => tree.ReloadCurrentScene();
 	}
 }

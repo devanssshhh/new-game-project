@@ -287,10 +287,12 @@ radius = 11.0
 height = 60.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hitbox"]
-size = Vector2(40, 48)
+size = Vector2(70, 55)
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=1652746095]
 z_index = 7
+collision_layer = 2
+collision_mask = 1
 script = ExtResource("1_pd30k")
 
 [node name="Hero" type="AnimatedSprite2D" parent="." unique_id=1526804120]
@@ -326,10 +328,10 @@ position = Vector2(1, 3)
 shape = SubResource("CapsuleShape2D_0lh7v")
 
 [node name="HitBox" type="Area2D" parent="." unique_id=42646901]
+position = Vector2(45, 3)
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("7_hitbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=128109634]
-position = Vector2(28, 3)
 shape = SubResource("RectangleShape2D_hitbox")

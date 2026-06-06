@@ -133,10 +133,12 @@ public partial class EnemySamurai : CharacterBody2D
 		}
 
 		_health -= damage;
+		GD.Print($"Samurai took {damage} damage! Current health: {_health}");
 		Flash();
 
 		if (_health <= 0)
 		{
+			GD.Print("Samurai died!");
 			Die();
 		}
 	}

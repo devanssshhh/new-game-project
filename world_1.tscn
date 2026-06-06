@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dyov070j4kp6c" path="res://Hero.tscn" id="1_e5alk"]
 [ext_resource type="PackedScene" uid="uid://x5ubek1osuxs" path="res://EnemySumrai.tscn" id="1_mnfc1"]
+[ext_resource type="PackedScene" path="res://EnemySkeleton.tscn" id="1_skeleton"]
 [ext_resource type="Texture2D" uid="uid://chwuoel6j8uyr" path="res://Asset Scenarios/DarkForest1.2/main_background.png" id="2_mqyi5"]
 [ext_resource type="Texture2D" uid="uid://bmneatqd8tax3" path="res://Asset Scenarios/DarkForest1.2/env_ground.png" id="3_1wjj6"]
 [ext_resource type="Texture2D" uid="uid://b1aimsmdlh17r" path="res://Asset Scenarios/DarkForest1.2/bgrd_tree1.png" id="4_8rlr6"]
@@ -12,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cnwmxysdtaqy" path="res://Asset Scenarios/DarkForest1.2/bgrd_tree4.png" id="7_m1yot"]
 [ext_resource type="Texture2D" uid="uid://1l1arp1ua0d6" path="res://Asset Scenarios/DarkForest1.2/bgrd_tree5.png" id="8_mnfc1"]
 [ext_resource type="Texture2D" uid="uid://bspmxlmoee3uc" path="res://Asset Scenarios/DarkForest1.2/top_far_bgrnd.png" id="11_m1yot"]
+[ext_resource type="Script" path="res://KillZone.cs" id="21_killzone"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mqyi5"]
 texture = ExtResource("2_mqyi5")
@@ -4204,11 +4206,18 @@ texture_region_size = Vector2i(17, 16)
 [sub_resource type="TileSet" id="TileSet_mnfc1"]
 sources/0 = SubResource("TileSetAtlasSource_m1yot")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_killzone"]
+size = Vector2(40000, 240)
+
 [node name="World-1" type="Node" unique_id=2111387832]
 
 [node name="EnemySamurai" parent="." unique_id=1191315195 instance=ExtResource("1_mnfc1")]
 z_index = 7
 position = Vector2(1654, -383)
+
+[node name="EnemySkeleton" parent="." instance=ExtResource("1_skeleton")]
+z_index = 7
+position = Vector2(1450, -320)
 
 [node name="CharacterBody2D" parent="." unique_id=1652746095 instance=ExtResource("1_e5alk")]
 z_index = 9
@@ -4240,3 +4249,12 @@ tile_set = SubResource("TileSet_204sq")
 z_index = 10
 tile_map_data = PackedByteArray("AABaAOv/AAAJABYAAAA=")
 tile_set = SubResource("TileSet_mnfc1")
+
+[node name="KillZone" type="Area2D" parent="."]
+position = Vector2(1197, 100)
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("21_killzone")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+shape = SubResource("RectangleShape2D_killzone")

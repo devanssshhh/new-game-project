@@ -191,6 +191,8 @@ animations = [{
 }]
 
 [node name="EnemySamurai" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
 script = ExtResource("4_enemy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=122020180]
@@ -212,10 +214,10 @@ position = Vector2(-9, 10)
 shape = SubResource("CapsuleShape2D_hurt")
 
 [node name="HitBox" type="Area2D" parent="."]
+position = Vector2(45, 10)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("6_hitbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(45, 10)
 shape = SubResource("RectangleShape2D_ehit")

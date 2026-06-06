@@ -23,20 +23,24 @@ public partial class HitBox : Area2D
 	// cannot be changed while the physics server is flushing queries.
 	public void StartAttack()
 	{
+		GD.Print($"{Owner?.Name}'s HitBox starting attack");
 		_hitThisSwing.Clear();
 		SetDeferred(Area2D.PropertyName.Monitoring, true);
 	}
 
 	public void EndAttack()
 	{
+		GD.Print($"{Owner?.Name}'s HitBox ending attack");
 		SetDeferred(Area2D.PropertyName.Monitoring, false);
 	}
 
 	private void OnAreaEntered(Area2D area)
 	{
+		GD.Print($"{Owner?.Name}'s HitBox entered {area.Owner?.Name}'s {area.Name}");
 		// _hitThisSwing.Add returns false if the target was already hit this swing.
 		if (area is HurtBox hurtBox && _hitThisSwing.Add(hurtBox))
 		{
+			GD.Print($"{Owner?.Name}'s HitBox dealing {Damage} damage to {area.Owner?.Name}");
 			hurtBox.TakeHit(Damage);
 		}
 	}
